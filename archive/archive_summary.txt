@@ -1,0 +1,39 @@
+## Archive Folder Summary
+
+This document provides a textual summary of the contents within the `archive` folder.
+
+### Folder Structure and Contents
+
+- **`common/`**: Contains common Python scripts (`config.py`, `utils.py`) used across different project modules.
+- **`crop_demo_assets/`**: Intended for crop-related demo assets, currently empty.
+- **`data/`**: Holds all data files, categorized as follows:
+  - **`optimized/`**: Contains optimized and processed satellite imagery data in `.npy` and `.tif` formats. Key files include:
+    - `catalog.json`: A JSON file cataloging flood events and their associated data.
+    - Sentinel-1 pre-flood and flood imagery for various locations.
+    - Flood masks for the corresponding areas.
+  - **`rapid_processed/`**: Contains preprocessed training and validation data (`train_data.npz`, `val_data.npz`).
+- **`demo_data_raw/`**: Includes raw demonstration data, such as `dem.npy` (Digital Elevation Model) and Sentinel-1/2 imagery.
+- **`outputs/`**: Stores the output of the data processing and modeling, including the trained model `optimized_flood_model.pt`.
+
+### Flood Event Catalog (`catalog.json`)
+
+The `catalog.json` file provides metadata for the following three flood events:
+
+1.  **Pakistan, Dadu (2022)**
+    - **Date**: 2022-08-28
+    - **Affected Population**: 500,000
+    - **Data**: `S1_Pakistan_Dadu_2022_pre.tif`, `S1_Pakistan_Dadu_2022_flood.tif`, `mask_Pakistan_Dadu_2022.tif`
+
+2.  **Bangladesh, Sylhet (2022)**
+    - **Date**: 2022-06-17
+    - **Affected Population**: 200,000
+    - **Data**: `S1_Bangladesh_Sylhet_2022_pre.tif`, `S1_Bangladesh_Sylhet_2022_flood.tif`, `mask_Bangladesh_Sylhet_2022.tif`
+
+3.  **India, Bangalore (2022)**
+    - **Date**: 2022-09-05
+    - **Affected Population**: 100,000
+    - **Data**: `S1_India_Bangalore_2022_pre.tif`, `S1_India_Bangalore_2022_flood.tif`, `mask_India_Bangalore_2022.tif`
+
+### Model Output
+
+The `outputs` folder contains a PyTorch model file, `optimized_flood_model.pt`, which is the trained model for flood detection based on the provided data.

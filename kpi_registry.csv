@@ -1,0 +1,8 @@
+demo,metric,value,unit
+Freight,7_day_r2,0.70,ratio
+LPG,Trend,NULL,direction
+Flood,mIoU,0.91,ratio
+Crop,stress_area,8.27,percent
+Urban,7_day_mape,9.8,percent
+NightPulse,yoy_change,10.4,percent
+Hawkeye-Health,7_day_mape,9.8,percent
