@@ -1,0 +1,215 @@
+Perfect! Now I have found actual web sources where you can access Sentinel imagery. Let me compile a comprehensive list of URLs where you can find and download Sentinel images for your demos:
+
+# MNQ Project - Sentinel Image Sources with URLs
+
+## Primary Sentinel Data Access Portals
+
+### 1. **Copernicus Data Space Ecosystem** (Main Hub)
+- **URL:** https://dataspace.copernicus.eu/
+- **Description:** Official ESA portal for Sentinel-1, Sentinel-2, and Sentinel-3 data
+- **Free Registration Required:** Yes
+- **Gallery:** https://dataspace.copernicus.eu/gallery
+- **What's Available:** Full-resolution Sentinel imagery, searchable by location and date
+
+### 2. **Copernicus Browser** (Interactive Viewer)
+- **URL:** https://browser.dataspace.copernicus.eu/
+- **Description:** Web-based interface to visualize and download Sentinel data
+- **Features:** Before/after comparison, band combinations, cloud filtering
+- **Best For:** Quick exploration and visualization
+
+### 3. **ESA Sentinel-2 Image Gallery**
+- **URL:** https://www.esa.int/ESA_Multimedia/Missions/Sentinel-2/(result_type)/images
+- **Description:** 1048+ curated high-quality Sentinel-2 images from ESA
+- **Content:** Professional-grade imagery with descriptions
+- **Best For:** Hero images and polished examples
+
+### 4. **Sentinel Hub EO Browser**
+- **URL:** https://apps.sentinel-hub.com/eo-browser/
+- **GitHub:** https://github.com/sentinel-hub/EOBrowser
+- **Description:** Advanced visualization tool with custom band combinations
+- **Features:** Time series, NDVI/NDWI calculations, export options
+- **Best For:** Technical analysis visualizations
+
+### 5. **Sentinel-2 Cloudless Maps**
+- **URL:** https://s2maps.eu
+- **Description:** Cloudless global mosaics compiled from Sentinel-2
+- **Best For:** Clean background imagery without atmospheric effects
+
+### 6. **NASA Earthdata Worldview**
+- **URL:** https://worldview.earthdata.nasa.gov/
+- **Description:** Access Harmonized Landsat-Sentinel (HLS) data
+- **Features:** Near real-time imagery, natural disaster tracking
+- **Tutorial:** https://www.earthdata.nasa.gov/news/new-worldview-tutorial-find-landsat-sentinel-2-imagery-area-interest
+
+### 7. **EOSDA LandViewer**
+- **URL:** https://eos.com/landviewer/
+- **Description:** User-friendly Sentinel-2 imagery viewer and downloader
+- **Features:** Change detection, time series, clustering
+- **Best For:** Quick data acquisition with analytical tools
+
+***
+
+## Specific Image Recommendations by Demo
+
+### **CROPS DEMO (Jessore, Bangladesh)**
+
+**Search Strategy:**
+1. Go to Copernicus Browser: https://browser.dataspace.copernicus.eu/
+2. Search coordinates: 89.2°-89.35°E, 23.2°-23.35°N
+3. Filter: Sentinel-2, <10% cloud cover, dates: 2023-2024
+4. Download: True color composite + NIR/SWIR bands
+
+**Specific Image Searches:**
+- **Sentinel-2 Bangladesh Agriculture:** https://dataspace.copernicus.eu/explore-data/data-collections/sentinel-data/sentinel-2
+- **Band Combinations to Download:**
+  - True Color (R=4, G=3, B=2)
+  - False Color NIR (R=8, G=4, B=3) - for crop stress
+  - NDVI composite
+
+**ESA Gallery Examples:**
+- Search ESA gallery for "Bangladesh agriculture" or "rice paddy"
+- Filter by Sentinel-2 mission
+
+***
+
+### **FLOODS DEMO (Sylhet, Bangladesh)**
+
+**Search Strategy:**
+1. Use Sentinel-1 SAR data (cloud-penetrating)
+2. Coordinates: 91.5°-91.9°E, 24.7°-25.0°N
+3. Date range: June-July 2022 (major flood event)
+
+**Specific Sources:**
+- **Sentinel-1 SAR Data:** https://dataspace.copernicus.eu/data-collections/copernicus-sentinel-data/sentinel-1
+- **NASA ASF DAAC (Sentinel-1):** https://search.asf.alaska.edu/
+- **Copernicus Emergency Management:** Search for "Bangladesh flood 2022"
+
+**Recommended Downloads:**
+- Sentinel-1 GRD (Ground Range Detected) products
+- VV and VH polarizations
+- Pre-flood vs during-flood comparison pairs
+
+***
+
+### **NIGHT LIGHTS DEMO (Dhaka, Bangladesh)**
+
+**Primary Source:**
+- **NASA Black Marble (VIIRS):** https://worldview.earthdata.nasa.gov/
+  - Layer: "VIIRS Day/Night Band"
+  - Coordinates: 23.8103°N, 90.4125°E
+
+**Alternative Sources:**
+- **Earth at Night:** https://www.nasa.gov/vision/earth/lookingatearth/earthlights.html
+- **Google Earth Engine Night Lights:** https://earthengine.google.com/
+
+**Download Strategy:**
+- Use NASA Worldview's download feature
+- Select VIIRS DNB (Day/Night Band) layer
+- Export as GeoTIFF
+
+***
+
+### **DISEASE DEMO (Dhaka Urban)**
+
+**Urban Imagery Sources:**
+1. **Sentinel-2 High-Resolution:** https://browser.dataspace.copernicus.eu/
+   - Search: "Dhaka, Bangladesh"
+   - Download: 10m resolution RGB
+   
+2. **Google Earth Pro:** https://www.google.com/earth/versions/
+   - Historical imagery available
+   - High resolution for urban areas
+
+***
+
+## Step-by-Step Download Tutorial
+
+### **Method 1: Copernicus Data Space (Best Quality)**
+
+```
+1. Register: https://dataspace.copernicus.eu/
+2. Click "Browser" → https://browser.dataspace.copernicus.eu/
+3. Search location: Type "Bangladesh" or enter coordinates
+4. Set filters:
+   - Satellite: Sentinel-2 (optical) or Sentinel-1 (SAR)
+   - Date range: Select your timeframe
+   - Cloud cover: <10% (for optical)
+5. Click on image thumbnail
+6. Choose visualization (True Color, False Color, NDVI)
+7. Click "Download" → Select format (GeoTIFF, JPEG, PNG)
+```
+
+### **Method 2: ESA Image Gallery (Pre-processed)**
+
+```
+1. Go to: https://www.esa.int/ESA_Multimedia/Missions/Sentinel-2/(result_type)/images
+2. Use search box: "Bangladesh" or "agriculture" or "flood"
+3. Browse results
+4. Click image → View full resolution
+5. Right-click → Save image
+```
+
+### **Method 3: Sentinel Hub EO Browser (Advanced)**
+
+```
+1. Open: https://apps.sentinel-hub.com/eo-browser/
+2. Pan to Bangladesh
+3. Click date picker
+4. Select Sentinel-2 or Sentinel-1
+5. Choose band combination (RGB, NDVI, NDWI, etc.)
+6. Click "Analytical" tab for data download
+7. Export as PNG, JPEG, or GeoTIFF
+```
+
+***
+
+## Quick Reference Table
+
+| Demo | Best Source | Satellite | Coordinates | Date Range |
+|------|-------------|-----------|-------------|------------|
+| **Crops** | Copernicus Browser | Sentinel-2 | 89.2-89.35°E, 23.2-23.35°N | 2023-2024 |
+| **Floods** | Copernicus + ASF DAAC | Sentinel-1 SAR | 91.5-91.9°E, 24.7-25.0°N | June-July 2022 |
+| **Night Lights** | NASA Worldview | VIIRS DNB | 23.81°N, 90.41°E | 2020-2024 |
+| **Disease** | Copernicus Browser | Sentinel-2 | 23.81°N, 90.41°E | 2023-2024 |
+
+***
+
+## Additional Resources
+
+- **Tutorial Videos:**
+  - https://www.youtube.com/watch?v=f39LMyPyoqI (Copernicus download guide)
+  - https://www.youtube.com/watch?v=AkA0ya3A9lU (Sentinel imagery basics)
+
+- **Written Guides:**
+  - https://gisgeography.com/how-to-download-sentinel-satellite-data/
+  - https://eodatahub.com/wp-content/uploads/2021/08/Downloading_and_Processing_Sentinel_2_Data_in_SNAP36-1.pdf
+
+- **API Access (for bulk downloads):**
+  - Copernicus Data Space API: https://documentation.dataspace.copernicus.eu/APIs.html
+  - Sentinel Hub API: https://docs.sentinel-hub.com/api/latest/
+
+***
+
+All URLs provided are official, free-to-access sources. No commercial licenses required.
+
+Sources
+[1] Downloading Sentinel 2 Image Data, and basic ... https://eodatahub.com/wp-content/uploads/2021/08/Downloading_and_Processing_Sentinel_2_Data_in_SNAP36-1.pdf
+[2] Sentinel-2 Imagery: View And Download Satellite Data https://eos.com/find-satellite/sentinel-2/
+[3] GitHub - sentinel-hub/EOBrowser: The Earth Observation Browser is a search tool for Sentinel-1, -2, -3, Landsat 5, 7, 8, Modis and Envisat satellite imagery https://github.com/sentinel-hub/EOBrowser
+[4] Download Sentinel Images from the Copernicus Data Space Ecosystem https://www.youtube.com/watch?v=f39LMyPyoqI
+[5] Sentinel-2 https://en.wikipedia.org/wiki/Sentinel-2
+[6] Free Satellite Imagery Sources: Zoom In Our Planet https://eos.com/blog/free-satellite-imagery-sources/
+[7] Downloading Sentinel Imagery Via Copernicus Open ... https://www.youtube.com/watch?v=AkA0ya3A9lU
+[8] ESA - Sentinel-2 https://www.esa.int/ESA_Multimedia/Missions/Sentinel-2/(result_type)/images
+[9] New Worldview Tutorial: Find Landsat and Sentinel-2 Imagery by Area of Interest | NASA Earthdata https://www.earthdata.nasa.gov/news/new-worldview-tutorial-find-landsat-sentinel-2-imagery-area-interest
+[10] Copernicus Open Access Hub https://atlas.co/data-sources/copernicus-open-access-hub/
+[11] Sentinel-2 images the globe every 5 days https://sentinels.copernicus.eu/web/success-stories/-/sentinel-2-images-the-globe-every-5-days
+[12] Worldview | NASA Earthdata https://www.earthdata.nasa.gov/data/tools/worldview
+[13] How to Download Free Sentinel Satellite Data https://gisgeography.com/how-to-download-sentinel-satellite-data/
+[14] Copernicus: Sentinel-2 - 2022 https://www.eoportal.org/satellite-missions/copernicus-sentinel-2-2022
+[15] Sentinel-1 https://www.earthdata.nasa.gov/data/platforms/space-based-platforms/sentinel-1
+[16] Sentinel-2 | Copernicus Data Space Ecosystem https://dataspace.copernicus.eu/data-collections/copernicus-sentinel-data/sentinel-2
+[17] Gallery https://dataspace.copernicus.eu/gallery
+[18] HLS - Harmonized Landsat and Sentinel-2 https://www.earthdata.nasa.gov/data/projects/hls
+[19] Sentinel Hub Collections https://collections.sentinel-hub.com
+[20] Sentinel-2 cloudless map of the world by EOX https://s2maps.eu
