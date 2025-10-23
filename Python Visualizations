@@ -1,0 +1,568 @@
+Perfect! I've analyzed all your scripts deeply. Now I'll create a comprehensive visualization strategy document that maps world-class data storytelling libraries to your specific techniques, complete with animated neural graphs, radials, and scrollytelling-style narratives.
+
+# MNQ Visual Content Strategy — Technical Scrollytelling
+
+**Mission:** Transform each demo's advanced AI techniques into engaging, world-class data visualizations that educate investors while maintaining technical credibility.
+
+***
+
+## 📊 Demo 1: CROPS (Jessore) — Self-Supervised Discovery
+
+### **Core Techniques to Visualize:**
+1. **SimSiam Self-Supervised Learning** (contrastive learning loop)
+2. **K-Means Unsupervised Clustering** (stress pattern discovery)
+3. **SegFormer Vision Transformer** (hierarchical feature extraction)
+4. **Multi-Modal Fusion** (Sentinel-2 + DEM + vegetation indices)
+
+### **Visualization Library Stack:**
+
+**Primary: Plotly + D3.js** for interactive neural architecture
+- **Library:** `plotly.graph_objects` + `plotly.express` (Python)
+- **Why:** GPU-accelerated rendering, WebGL support, responsive interactions
+- **Animation:** `plotly.graph_objects.Figure.update` with frame transitions
+
+**Neural Graph Library: NetworkX + Plotly**
+- **Library:** `networkx` for graph structure + `plotly` for 3D rendering
+- **Technique:** Animated SimSiam twin network showing:
+  - Two augmented views of same crop tile
+  - Encoder branches converging
+  - Predictor/projector MLP layers
+  - Cosine similarity loss minimization
+  - Color-coded activation flows
+
+**Radial Visualization: Matplotlib Polar + Seaborn**
+- **Library:** `matplotlib.pyplot.subplot(projection='polar')` + `seaborn`
+- **Use Case:** K-Means cluster radial plot
+  - 4 stress clusters as radial segments
+  - NDVI/NDWI/moisture indices as concentric rings
+  - Animated cluster assignment transitions
+
+**Scrollytelling: Scrollama.js + GSAP**
+- **Frontend:** `scrollama.js` for scroll-driven triggers
+- **Animation:** `GSAP (GreenSock)` for smooth transitions
+- **Structure:**
+  1. **Scroll 0%:** Raw Sentinel-2 RGB → fade in
+  2. **Scroll 25%:** SimSiam architecture diagram flies in from left
+  3. **Scroll 50%:** Feature space clustering animation (t-SNE reduction)
+  4. **Scroll 75%:** Stress map overlay with heatmap gradient
+  5. **Scroll 100%:** Final stress percentage metric odometer count-up
+
+### **Code Implementation Pattern:**
+
+```python
+import plotly.graph_objects as go
+import networkx as nx
+import numpy as np
+
+# SimSiam Neural Graph Visualization
+def create_simsiam_animation():
+    # Create graph structure
+    G = nx.DiGraph()
+    layers = ['Input_1', 'Input_2', 'Conv1', 'Conv2', 'Conv3', 'Conv4', 
+              'Projector', 'Predictor', 'Loss']
+    
+    # Add edges (simplified SimSiam architecture)
+    edges = [
+        ('Input_1', 'Conv1'), ('Input_2', 'Conv1'),
+        ('Conv1', 'Conv2'), ('Conv2', 'Conv3'), ('Conv3', 'Conv4'),
+        ('Conv4', 'Projector'), ('Projector', 'Predictor'), 
+        ('Predictor', 'Loss')
+    ]
+    G.add_edges_from(edges)
+    
+    # 3D spring layout
+    pos = nx.spring_layout(G, dim=3, seed=42)
+    
+    # Extract coordinates
+    x_nodes = [pos[node][0] for node in G.nodes()]
+    y_nodes = [pos[node][1] for node in G.nodes()]
+    z_nodes = [pos[node][2] for node in G.nodes()]
+    
+    # Create animated scatter for nodes
+    fig = go.Figure()
+    
+    # Add edges as lines
+    for edge in G.edges():
+        x_edge = [pos[edge[0]][0], pos[edge[1]][0]]
+        y_edge = [pos[edge[0]][1], pos[edge[1]][1]]
+        z_edge = [pos[edge[0]][2], pos[edge[1]][2]]
+        fig.add_trace(go.Scatter3d(x=x_edge, y=y_edge, z=z_edge,
+                                    mode='lines', line=dict(color='#00ff41', width=2),
+                                    hoverinfo='none'))
+    
+    # Add nodes with animation frames
+    frames = []
+    for i in range(10):  # 10 frame animation
+        frame_data = go.Scatter3d(
+            x=x_nodes, y=y_nodes, z=z_nodes,
+            mode='markers+text',
+            marker=dict(size=15 + i*2, color=np.linspace(0, 1, len(G.nodes())),
+                       colorscale='Viridis', opacity=0.8),
+            text=list(G.nodes()),
+            textposition='top center'
+        )
+        frames.append(go.Frame(data=[frame_data], name=f'frame{i}'))
+    
+    fig.frames = frames
+    fig.update_layout(
+        scene=dict(xaxis=dict(visible=False), yaxis=dict(visible=False), 
+                   zaxis=dict(visible=False)),
+        title='SimSiam Self-Supervised Learning Architecture',
+        updatemenus=[dict(type='buttons', showactive=False,
+                         buttons=[dict(label='Play', method='animate',
+                                      args=[None, dict(frame=dict(duration=500))])])]
+    )
+    return fig
+
+# K-Means Radial Cluster Visualization
+def create_cluster_radial(cluster_stats):
+    import matplotlib.pyplot as plt
+    
+    fig, ax = plt.subplots(subplot_kw=dict(projection='polar'), figsize=(10, 10))
+    
+    # 4 clusters as 90-degree segments
+    theta = np.linspace(0, 2*np.pi, 4, endpoint=False)
+    width = 2*np.pi / 4
+    
+    # Cluster health scores (inverse of stress)
+    radii = [cluster_stats[i]['ndvi_mean'] for i in range(4)]
+    colors = plt.cm.RdYlGn(radii)
+    
+    bars = ax.bar(theta, radii, width=width, bottom=0.0, color=colors, alpha=0.75)
+    
+    # Animate: gradually reveal each cluster
+    for i, bar in enumerate(bars):
+        bar.set_height(0)  # Start at 0
+    
+    # Return animation function for GSAP/JavaScript
+    ax.set_title('Unsupervised Crop Stress Clusters', va='bottom', fontsize=16)
+    return fig
+
+# Export as HTML with Plotly
+fig = create_simsiam_animation()
+fig.write_html('crop_simsiam_neural_graph.html')
+```
+
+### **Scrollytelling JavaScript Integration:**
+
+```javascript
+// scrollama.js + GSAP
+import scrollama from 'scrollama';
+import { gsap } from 'gsap';
+
+const scroller = scrollama();
+
+scroller
+  .setup({
+    step: '.scroll-step',
+    offset: 0.5,
+    progress: true
+  })
+  .onStepProgress(response => {
+    const progress = response.progress;
+    
+    // Animate neural graph opacity
+    if (response.index === 1) {
+      gsap.to('#simsiam-graph', { opacity: progress, duration: 0.3 });
+    }
+    
+    // Animate cluster radial segments
+    if (response.index === 2) {
+      for (let i = 0; i < 4; i++) {
+        gsap.to(`.cluster-${i}`, { height: progress * 100 + '%', duration: 0.5 });
+      }
+    }
+  });
+```
+
+***
+
+## 🌊 Demo 2: FLOODS (Sylhet) — Vision Transformer Segmentation
+
+### **Core Techniques to Visualize:**
+1. **SegFormer Hierarchical Encoder** (multi-scale feature pyramid)
+2. **SAR + Optical Fusion** (multi-modal data integration)
+3. **NDWI Physics-Informed Pseudo-Labeling**
+4. **CRF Post-Processing** (conditional random field refinement)
+
+### **Visualization Library Stack:**
+
+**3D Feature Pyramid: Three.js + React Three Fiber**
+- **Library:** `three.js` (WebGL 3D) + `@react-three/fiber`
+- **Technique:** Animated 3D pyramid showing SegFormer stages
+  - Stage 1: 256×256 → 64×64 (8× downsample)
+  - Stage 2: 64×64 → 32×32
+  - Stage 3: 32×32 → 16×16
+  - Stage 4: 16×16 → 8×8
+  - Each stage as 3D block with feature maps flowing upward
+
+**Sankey Diagram: Plotly Sankey**
+- **Library:** `plotly.graph_objects.Sankey`
+- **Use Case:** Multi-modal data fusion flow
+  - Sentinel-1 VV/VH bands → SAR change feature
+  - Sentinel-2 RGB/NIR → NDWI index
+  - DEM → Slope feature
+  - All converging into SegFormer input tensor
+
+**Heatmap Animation: Matplotlib + FFmpeg**
+- **Library:** `matplotlib.animation.FuncAnimation` + `ffmpeg`
+- **Output:** MP4 video showing:
+  - Frame 1: Pre-flood SAR backscatter
+  - Frame 2-10: Gradual flood inundation (temporal animation)
+  - Frame 11-20: Model prediction heatmap overlay
+  - Frame 21-30: Final binary mask with CRF refinement
+
+### **Code Implementation:**
+
+```python
+import plotly.graph_objects as go
+from matplotlib.animation import FuncAnimation
+import matplotlib.pyplot as plt
+
+# SegFormer Feature Pyramid (Sankey Flow)
+def create_segformer_sankey():
+    fig = go.Figure(data=[go.Sankey(
+        node=dict(
+            pad=15,
+            thickness=20,
+            line=dict(color='black', width=0.5),
+            label=['S1 VV', 'S1 VH', 'S2 RGB', 'S2 NIR', 'DEM', 'Slope',
+                   'SAR Change', 'NDWI', 'Terrain',
+                   'Stage1 (32ch)', 'Stage2 (64ch)', 'Stage3 (160ch)', 'Stage4 (256ch)',
+                   'Decoder', 'Flood Mask'],
+            color=['#1f77b4']*6 + ['#ff7f0e']*3 + ['#2ca02c']*4 + ['#d62728']*2
+        ),
+        link=dict(
+            source=[0,1,2,3,4,5, 6,7,8, 9,10,11,12, 13],  # indices
+            target=[6,6,7,7,8,8, 9,9,9, 10,11,12,13, 14],
+            value=[20,20,30,30,15,15, 50,50,50, 100,80,60,40, 150],
+            color='rgba(0,0,255,0.2)'
+        )
+    )])
+    
+    fig.update_layout(title_text='SegFormer Multi-Modal Fusion Pipeline',
+                     font_size=12, height=600)
+    return fig
+
+# Flood Progression Animation
+def create_flood_animation(s1_pre, s1_flood, pred_heatmap):
+    fig, ax = plt.subplots(figsize=(10, 8))
+    
+    frames = []
+    # Pre-flood baseline
+    frames.extend([s1_pre] * 10)
+    # Gradual transition to flood
+    for alpha in np.linspace(0, 1, 10):
+        frames.append(s1_pre * (1-alpha) + s1_flood * alpha)
+    # Model prediction overlay
+    for alpha in np.linspace(0, 1, 10):
+        frames.append(s1_flood * (1-alpha) + pred_heatmap * alpha)
+    
+    im = ax.imshow(frames[0], cmap='gray', animated=True)
+    
+    def update(frame):
+        im.set_data(frames[frame])
+        ax.set_title(f'Flood Detection: Frame {frame}/{len(frames)}')
+        return [im]
+    
+    ani = FuncAnimation(fig, update, frames=len(frames), interval=100, blit=True)
+    ani.save('flood_progression.mp4', writer='ffmpeg', fps=10, dpi=150)
+    return ani
+
+# 3D Feature Pyramid (export for Three.js)
+def export_feature_pyramid_json(model_hidden_sizes=[32, 64, 160, 256]):
+    pyramid_data = {
+        'stages': []
+    }
+    
+    sizes = [256, 64, 32, 16, 8]  # Spatial dimensions
+    for i, (size, channels) in enumerate(zip(sizes, model_hidden_sizes)):
+        pyramid_data['stages'].append({
+            'level': i+1,
+            'spatial_size': size,
+            'channels': channels,
+            'position': {'x': 0, 'y': i*50, 'z': 0},
+            'color': f'hsl({i*40}, 70%, 50%)'
+        })
+    
+    with open('segformer_pyramid.json', 'w') as f:
+        json.dump(pyramid_data, f, indent=2)
+    
+    return pyramid_data
+
+# Execute
+fig = create_segformer_sankey()
+fig.write_html('flood_segformer_flow.html')
+export_feature_pyramid_json()
+```
+
+***
+
+## 🌃 Demo 3: NIGHT LIGHTS (Dhaka) — Economic Activity Proxy
+
+### **Core Techniques to Visualize:**
+1. **VIIRS Nightlight Radiance Time Series**
+2. **Year-over-Year Change Detection**
+3. **Spatial Autocorrelation** (urban cluster patterns)
+4. **Economic Activity Proxy Calculation**
+
+### **Visualization Library Stack:**
+
+**Geospatial Heatmap: Folium + Leaflet.js**
+- **Library:** `folium` (Python) → exports to Leaflet.js
+- **Technique:** Interactive choropleth map
+  - Dhaka district boundaries
+  - Color gradient: nightlight radiance intensity
+  - Tooltip: exact radiance values + YoY change %
+
+**Time Series: Altair (Vega-Lite)**
+- **Library:** `altair` for declarative viz → exports to Vega JSON
+- **Features:**
+  - Dual-axis: nightlight radiance (left) + GDP proxy (right)
+  - Brush selection for zoom
+  - Tooltip with exact dates
+
+**Radial Progress: Chart.js Doughnut**
+- **Library:** `chart.js` (JavaScript) + Python export
+- **Use Case:** Economic activity score (0-100)
+  - Animated count-up from 0 to current score
+  - Color transitions: red → yellow → green
+
+### **Code Implementation:**
+
+```python
+import folium
+from folium.plugins import HeatMap
+import altair as alt
+import pandas as pd
+
+# Nightlight Geospatial Heatmap
+def create_nightlight_map(lat_lon_radiance_data):
+    m = folium.Map(location=[DHAKA_LAT, DHAKA_LON], zoom_start=11,
+                   tiles='CartoDB dark_matter')
+    
+    # Prepare heatmap  [[lat, lon, weight], ...]
+    heat_data = [[row['lat'], row['lon'], row['radiance']] 
+                 for _, row in lat_lon_radiance_data.iterrows()]
+    
+    HeatMap(heat_data, radius=15, blur=25, max_zoom=13, 
+            gradient={0.0: 'navy', 0.5: 'yellow', 1.0: 'red'}).add_to(m)
+    
+    # Add markers for key districts
+    folium.Marker([23.8103, 90.4125], popup='Dhaka Central',
+                  icon=folium.Icon(color='red', icon='info-sign')).add_to(m)
+    
+    m.save('dhaka_nightlights_heatmap.html')
+    return m
+
+# Time Series with Altair
+def create_radiance_timeseries(df):
+    # df must have columns: date, radiance, gdp_proxy
+    
+    base = alt.Chart(df).encode(x='date:T')
+    
+    radiance_line = base.mark_line(color='#00ff41', strokeWidth=3).encode(
+        y=alt.Y('radiance:Q', axis=alt.Axis(title='Nightlight Radiance', titleColor='#00ff41'))
+    )
+    
+    gdp_line = base.mark_line(color='#ffaa00', strokeWidth=2, strokeDash=[5,5]).encode(
+        y=alt.Y('gdp_proxy:Q', axis=alt.Axis(title='GDP Proxy (USD)', titleColor='#ffaa00'))
+    )
+    
+    chart = alt.layer(radiance_line, gdp_line).resolve_scale(y='independent').properties(
+        width=800, height=400,
+        title='Economic Activity Proxy via Nightlight Radiance'
+    ).interactive()
+    
+    chart.save('nightlights_timeseries.html')
+    return chart
+
+# Radial Progress (export JSON for Chart.js)
+def export_radial_progress(current_score, max_score=100):
+    chart_data = {
+        'type': 'doughnut',
+        'data': {
+            'labels': ['Activity Score', 'Remaining'],
+            'datasets': [{
+                'data': [current_score, max_score - current_score],
+                'backgroundColor': ['#00ff41', '#1a1a1a'],
+                'borderWidth': 0
+            }]
+        },
+        'options': {
+            'cutout': '75%',
+            'animation': {'duration': 2000, 'easing': 'easeInOutQuart'},
+            'plugins': {
+                'legend': {'display': False},
+                'tooltip': {'enabled': True}
+            }
+        }
+    }
+    
+    with open('radial_progress.json', 'w') as f:
+        json.dump(chart_data, f, indent=2)
+    
+    return chart_data
+```
+
+***
+
+## 🦟 Demo 4: DISEASE (Dengue) — Multi-Modal Predictive Fusion
+
+### **Core Techniques to Visualize:**
+1. **RandomForest Feature Importance** (which covariates matter most)
+2. **Correlation Matrix** (weather + population + nightlights → disease)
+3. **Lagged Features** (7-day, 14-day temporal effects)
+4. **Forecast Confidence Intervals**
+
+### **Visualization Library Stack:**
+
+**Correlation Heatmap: Seaborn + Plotly**
+- **Library:** `seaborn.heatmap` → convert to Plotly for interactivity
+- **Features:** Animated reveal (row-by-row)
+
+**Feature Importance: D3.js Horizontal Bar Chart**
+- **Library:** `d3.js` + Python export
+- **Animation:** Bars grow from left to right with delay stagger
+
+**Forecast with Uncertainty: Plotly Ribbon**
+- **Library:** `plotly.graph_objects.Scatter` with `fill='tonexty'`
+- **Visualization:**
+  - Central line: forecast mean
+  - Shaded area: 95% confidence interval
+
+**Network Graph: Cytoscape.js**
+- **Library:** `cytoscape.js` (JavaScript) + Python NetworkX export
+- **Use Case:** Causal graph
+  - Nodes: temperature_lag_7, humidity_lag_14, cases
+  - Edges: correlation strengths (edge thickness)
+
+### **Code Implementation:**
+
+```python
+import seaborn as sns
+import plotly.graph_objects as go
+from sklearn.ensemble import RandomForestRegressor
+
+# Animated Correlation Heatmap
+def create_correlation_heatmap(df):
+    corr = df.corr()
+    
+    # Create Plotly heatmap with animation
+    frames = []
+    for i in range(len(corr)):
+        visible_corr = corr.iloc[:i+1, :i+1]
+        frame = go.Frame(data=[go.Heatmap(z=visible_corr.values,
+                                           x=visible_corr.columns,
+                                           y=visible_corr.index,
+                                           colorscale='RdBu_r', zmid=0)])
+        frames.append(frame)
+    
+    fig = go.Figure(frames=frames)
+    fig.add_trace(go.Heatmap(z=corr.values, x=corr.columns, y=corr.index,
+                             colorscale='RdBu_r', zmid=0))
+    
+    fig.update_layout(
+        updatemenus=[dict(type='buttons', showactive=False,
+                         buttons=[dict(label='Play', method='animate',
+                                      args=[None, dict(frame=dict(duration=200))])])],
+        title='Multi-Modal Correlation Matrix'
+    )
+    
+    fig.write_html('correlation_animated.html')
+    return fig
+
+# Feature Importance (export for D3)
+def export_feature_importance(model, feature_names):
+    importances = model.feature_importances_
+    indices = np.argsort(importances)[::-1]
+    
+    importance_data = [{
+        'feature': feature_names[i],
+        'importance': float(importances[i]),
+        'rank': rank+1
+    } for rank, i in enumerate(indices[:15])]  # Top 15
+    
+    with open('feature_importance.json', 'w') as f:
+        json.dump(importance_data, f, indent=2)
+    
+    return importance_data
+
+# Forecast with Confidence Ribbon
+def create_forecast_viz(dates, forecast_mean, forecast_lower, forecast_upper):
+    fig = go.Figure()
+    
+    # Upper bound
+    fig.add_trace(go.Scatter(
+        x=dates, y=forecast_upper,
+        fill=None, mode='lines', line=dict(color='rgba(0,0,255,0)'),
+        showlegend=False
+    ))
+    
+    # Lower bound (fills to upper)
+    fig.add_trace(go.Scatter(
+        x=dates, y=forecast_lower,
+        fill='tonexty', mode='lines', line=dict(color='rgba(0,0,255,0)'),
+        fillcolor='rgba(68, 138, 255, 0.3)',
+        name='95% Confidence'
+    ))
+    
+    # Forecast line
+    fig.add_trace(go.Scatter(
+        x=dates, y=forecast_mean,
+        mode='lines', line=dict(color='#00ff41', width=3),
+        name='Predicted Cases'
+    ))
+    
+    fig.update_layout(title='14-Day Dengue Forecast', xaxis_title='Date',
+                     yaxis_title='Daily Cases', hovermode='x unified')
+    
+    fig.write_html('dengue_forecast.html')
+    return fig
+```
+
+***
+
+## 🎯 **Master Library Linking Table**
+
+| **Technique** | **Python Library** | **JavaScript/Frontend** | **Animation** | **Export Format** |
+|---------------|-------------------|------------------------|---------------|-------------------|
+| Neural Graphs | NetworkX + Plotly | D3.js force layout | GSAP / Plotly frames | HTML / JSON |
+| 3D Feature Pyramids | Plotly 3D | Three.js + React Three Fiber | GSAP timeline | GLTF / JSON |
+| Radial Clusters | Matplotlib Polar | Chart.js Radar | Chart.js animate | PNG / Canvas |
+| Sankey Flows | Plotly Sankey | D3-sankey | Plotly transitions | HTML / SVG |
+| Heatmaps | Seaborn / Plotly | Plotly.js | Frame-based reveal | HTML |
+| Geospatial | Folium / Geopandas | Leaflet.js / Mapbox | Leaflet plugins | HTML |
+| Time Series | Altair / Plotly | Vega-Lite / Recharts | CSS transitions | JSON / HTML |
+| Scrollytelling | N/A (Python backend) | Scrollama.js + GSAP | Scroll-driven | HTML sections |
+
+***
+
+## 🚀 **Implementation Roadmap**
+
+**Phase 1: Static Visualizations (Week 1)**
+- Generate all Plotly/Matplotlib outputs
+- Export JSON for JavaScript consumption
+
+**Phase 2: Interactive Layers (Week 2)**
+- Integrate Scrollama.js scroll triggers
+- Add GSAP animations to neural graphs
+
+**Phase 3: 3D Enhancements (Week 3)**
+- Build Three.js feature pyramid
+- Add WebGL-powered heatmaps
+
+**Phase 4: Final Polish (Week 4)**
+- Responsive design testing
+- Performance optimization (lazy loading)
+
+***
+
+**Next Steps:** Would you like me to generate complete, runnable Python scripts for any specific demo's visualizations? I can create production-ready code with all libraries pre-configured.
+
+Sources
+[1] 02_demo_model_train.py https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/133393716/c80e2c92-ee1d-4f43-9471-2258ce43bc9f/02_demo_model_train.py
+[2] run_corrected_crop_demo.py https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/133393716/5e0326e6-33c6-4b70-acdd-cbc7886801a9/run_corrected_crop_demo.py
+[3] generate_flood_explainer.py https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/133393716/bba84de7-f35c-4be7-bbe8-5ff41598f354/generate_flood_explainer.py
+[4] generate_crop_explainer.py https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/133393716/d636c6b8-af95-41c4-9c4b-1bf519d3c383/generate_crop_explainer.py
+[5] run_hawkeye_omega_v4_corrected.py https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/133393716/9efcad4a-5c13-4f84-85d5-639d17b00b3e/run_hawkeye_omega_v4_corrected.py
